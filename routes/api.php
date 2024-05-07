@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MedspaServicesController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {

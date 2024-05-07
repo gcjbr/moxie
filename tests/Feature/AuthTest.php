@@ -12,7 +12,7 @@ it('returns a token on valid login', function () {
         'password' => bcrypt('password'),
     ]);
 
-    $response = $this->postJson('/api/login', [
+    $response = $this->postJson('/api/v1/login', [
         'email' => 'user@example.com',
         'password' => 'password',
     ]);
