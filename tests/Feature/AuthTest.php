@@ -6,6 +6,21 @@ use Laravel\Sanctum\Sanctum;
 
 uses(RefreshDatabase::class);
 
+it('returns a token on valid login', function () {
+    User::factory()->create([
+        'email' => 'user@example.com',
+        'password' => bcrypt('password'),
+    ]);
+
+    $response = $this->postJson('/api/login', [
+        'email' => 'user@example.com',
+        'password' => 'password',
+    ]);
+
+    $response->assertOk();
+    $response->assertJsonStructure(['token']);
+});
+
 it('denies access to appointments for unauthenticated users', function () {
     $response = $this->getJson('/api/v1/user');
     $response->assertStatus(401);
