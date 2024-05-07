@@ -6,10 +6,8 @@ use App\Http\Requests\AppointmentRequest;
 use App\Http\Requests\AppointmentUpdateRequest;
 use App\Http\Resources\AppointmentResource;
 use App\Models\Appointment;
-use App\Models\Medspa;
 use App\Models\Service;
 use Illuminate\Http\Request;
-use function dd;
 
 class AppointmentController extends Controller
 {
@@ -43,7 +41,6 @@ class AppointmentController extends Controller
             'start_time' => $request->start_time,
         ]);
 
-
         // Attach services and calculate totals
         $services = Service::findMany($request->services);
 
@@ -52,9 +49,7 @@ class AppointmentController extends Controller
         $appointment->save();
         $appointment->refresh();  // Refresh to fetch the default status in case it's not passed
 
-
         $appointment->services()->attach($services);
-
 
         return new AppointmentResource($appointment);
     }
@@ -70,5 +65,4 @@ class AppointmentController extends Controller
 
         return new AppointmentResource($appointment);
     }
-
 }
